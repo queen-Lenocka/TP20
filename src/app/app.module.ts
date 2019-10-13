@@ -6,20 +6,24 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 
-import { AppBootstrapModule } from './app-bootstrap/app-bootstrap.module';
 import { MainContextComponent } from './main-context/main-context.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { TransactionSenderComponent } from './transaction-sender/transaction-sender.component';
+import { TransactionReceiverComponent } from './transaction-receiver/transaction-receiver.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     FooterComponent,
-    MainContextComponent
+    MainContextComponent,
+    TransactionSenderComponent,
+    TransactionReceiverComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppBootstrapModule
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
