@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionSenderService } from './transaction-sender.service';
 
 @Component({
   selector: 'app-transaction-sender',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transaction-sender.component.sass']
 })
 export class TransactionSenderComponent implements OnInit {
-
-  constructor() { }
+  dataFromServer;
+  error;
+  constructor(private messageService: TransactionSenderService) { }
 
   ngOnInit() {
+    this.getTestData();
   }
 
+  getTestData() {
+    this.messageService.getResponseFromServer().subscribe(
+      data => {
+        this.dataFromServer = data.testMessages;
+        console.log(data);
+      },
+      error => this.error
+    );
+  }
 }

@@ -1,0 +1,21 @@
+{
+  "name": "blockchain_backend",
+  "version": "1.0.0",
+  "description": "Json file for blockchain gateway",
+  "main": "server.js",
+  "scripts": {
+    "test": "block_test",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "blockchain",
+    "gateway"
+  ],
+  "author": "Blockchain Busters",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
