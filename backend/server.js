@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+var db_conf = require("./database_conf");
 
 var corsOptions = {
   origin: 'http://localhost:4200',
@@ -14,6 +15,15 @@ app.use(cors(corsOptions));
 
 app.listen(8080, () => {
   console.log('Server started!');
+
+  // select all from table
+  db_conf.db.any('SELECT * FROM transaction_type')
+    .then(function(data) {
+        console.log(data);
+      })
+      .catch(function(error) {
+        console.log(error);
+    });
 });
 
 app.route('/api/test').get((req, res) => {
@@ -22,4 +32,8 @@ app.route('/api/test').get((req, res) => {
   res.send(JSON.stringify({
     testMessages: 'fine'
   }));
+});
+
+app.route('/api/test').post((req, res) => {
+  console.log(req.body);
 });

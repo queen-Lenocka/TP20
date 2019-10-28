@@ -9,10 +9,19 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TransactionSenderService {
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
   constructor(private http: HttpClient) { }
 
   getResponseFromServer(): Observable<any> {
     return this.http.get<any>('http://localhost:8080/api/test');
   }
+
+  postDataToServer(data): Observable<any> {
+    return this.http.post<any>('http://localhost:8080/api/test', JSON.stringify(data), this.httpOptions);
+  }
+
 }
