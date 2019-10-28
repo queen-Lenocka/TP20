@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Export database
+
+Run `pg_dump -U postgres blockchain > blockchainexport.pgsql` from backend folder.
+
+## Import database
+
+Run `psql -U postgres blockchain < blockchainexport.pgsql` from backend folder.
