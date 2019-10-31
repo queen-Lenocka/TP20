@@ -24,6 +24,12 @@ app.listen(8080, () => {
       .catch(function(error) {
         console.log(error);
     });
+
+  // insert into db example
+  //db.none('INSERT INTO users(first_name, last_name, age) VALUES(${name.first}, $<name.last>, $/age/)', {
+  //  name: {first: 'John', last: 'Dow'},
+  //  age: 30
+  //});
 });
 
 app.route('/api/test').get((req, res) => {
