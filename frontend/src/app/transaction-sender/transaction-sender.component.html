@@ -1,2 +1,12 @@
 <h5>Here goes form for transaction sender</h5>
 <h6>{{ dataFromServer }}</h6>
+
+
+<form (ngSubmit)="sendTestData()">
+  <div>
+    <input type="text" name="transactionType" [(ngModel)]="visa"/>
+  </div>
+  <div>
+    <button type="submit">Upload</button>
+  </div>
+</form>
