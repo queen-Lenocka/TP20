@@ -36,8 +36,8 @@ Run `createdb -h localhost -p 5432 -U postgres -E utf8 blockchain` to create new
 
 ## Import database
 
-Run `psql -U postgres blockchain < blockchainexport.sql` from backend folder.
+Run `psql -d blockchain -U postgres -f blockchainexport.sql` from backend folder.
 
 ## Export database
 
-Run `pg_dump -U postgres blockchain > blockchainexport.sql` from backend folder.
+Run `pg_dump --encoding utf8 -U postgres -d blockchain -f blockchainexport.sql` from backend folder.
