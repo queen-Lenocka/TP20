@@ -21,6 +21,40 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: account_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.account_type (
+    account_type_id integer NOT NULL,
+    account_type character varying
+);
+
+
+ALTER TABLE public.account_type OWNER TO postgres;
+
+--
+-- Name: account_type_account_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.account_type_account_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_type_account_type_id_seq OWNER TO postgres;
+
+--
+-- Name: account_type_account_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.account_type_account_type_id_seq OWNED BY public.account_type.account_type_id;
+
+
+--
 -- Name: transaction_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -31,7 +65,8 @@ CREATE TABLE public.transaction_log (
     sender_price numeric,
     receiver_price numeric,
     is_successful boolean,
-    hash character varying
+    hash character varying,
+    create_date timestamp without time zone
 );
 
 
@@ -141,6 +176,86 @@ ALTER SEQUENCE public.transaction_type_trans_type_id_seq OWNED BY public.transac
 
 
 --
+-- Name: user_account; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_account (
+    user_account_id integer NOT NULL,
+    account_type_fk integer,
+    username character varying,
+    userpassword character varying,
+    is_active boolean,
+    create_date timestamp without time zone
+);
+
+
+ALTER TABLE public.user_account OWNER TO postgres;
+
+--
+-- Name: user_account_user_account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_account_user_account_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_account_user_account_id_seq OWNER TO postgres;
+
+--
+-- Name: user_account_user_account_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_account_user_account_id_seq OWNED BY public.user_account.user_account_id;
+
+
+--
+-- Name: user_transaction; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_transaction (
+    user_trans_id integer NOT NULL,
+    user_account_fk integer,
+    trans_type_fk integer
+);
+
+
+ALTER TABLE public.user_transaction OWNER TO postgres;
+
+--
+-- Name: user_transaction_user_trans_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_transaction_user_trans_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_transaction_user_trans_id_seq OWNER TO postgres;
+
+--
+-- Name: user_transaction_user_trans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_transaction_user_trans_id_seq OWNED BY public.user_transaction.user_trans_id;
+
+
+--
+-- Name: account_type account_type_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.account_type ALTER COLUMN account_type_id SET DEFAULT nextval('public.account_type_account_type_id_seq'::regclass);
+
+
+--
 -- Name: transaction_log trans_log_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -162,10 +277,32 @@ ALTER TABLE ONLY public.transaction_type_field ALTER COLUMN trans_type_field_id 
 
 
 --
+-- Name: user_account user_account_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_account ALTER COLUMN user_account_id SET DEFAULT nextval('public.user_account_user_account_id_seq'::regclass);
+
+
+--
+-- Name: user_transaction user_trans_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_transaction ALTER COLUMN user_trans_id SET DEFAULT nextval('public.user_transaction_user_trans_id_seq'::regclass);
+
+
+--
+-- Data for Name: account_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.account_type (account_type_id, account_type) FROM stdin;
+\.
+
+
+--
 -- Data for Name: transaction_log; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.transaction_log (trans_log_id, sender_trans_type_fk, receiver_trans_type_fk, sender_price, receiver_price, is_successful, hash) FROM stdin;
+COPY public.transaction_log (trans_log_id, sender_trans_type_fk, receiver_trans_type_fk, sender_price, receiver_price, is_successful, hash, create_date) FROM stdin;
 \.
 
 
@@ -183,6 +320,29 @@ COPY public.transaction_type (trans_type_id, type_name, type_display, is_active,
 
 COPY public.transaction_type_field (trans_type_field_id, trans_type_fk, field_name, field_display, is_active, create_date, validators, is_required, field_order) FROM stdin;
 \.
+
+
+--
+-- Data for Name: user_account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_account (user_account_id, account_type_fk, username, userpassword, is_active, create_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user_transaction; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_transaction (user_trans_id, user_account_fk, trans_type_fk) FROM stdin;
+\.
+
+
+--
+-- Name: account_type_account_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.account_type_account_type_id_seq', 1, false);
 
 
 --
@@ -204,6 +364,28 @@ SELECT pg_catalog.setval('public.transaction_type_field_trans_type_field_id_seq'
 --
 
 SELECT pg_catalog.setval('public.transaction_type_trans_type_id_seq', 1, false);
+
+
+--
+-- Name: user_account_user_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_account_user_account_id_seq', 1, false);
+
+
+--
+-- Name: user_transaction_user_trans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_transaction_user_trans_id_seq', 1, false);
+
+
+--
+-- Name: account_type account_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.account_type
+    ADD CONSTRAINT account_type_pkey PRIMARY KEY (account_type_id);
 
 
 --
@@ -231,6 +413,22 @@ ALTER TABLE ONLY public.transaction_type
 
 
 --
+-- Name: user_account user_account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_account
+    ADD CONSTRAINT user_account_pkey PRIMARY KEY (user_account_id);
+
+
+--
+-- Name: user_transaction user_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_transaction
+    ADD CONSTRAINT user_transaction_pkey PRIMARY KEY (user_trans_id);
+
+
+--
 -- Name: transaction_log transaction_log_receiver_trans_type_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -252,6 +450,30 @@ ALTER TABLE ONLY public.transaction_log
 
 ALTER TABLE ONLY public.transaction_type_field
     ADD CONSTRAINT transaction_type_field_trans_type_fk_fkey FOREIGN KEY (trans_type_fk) REFERENCES public.transaction_type(trans_type_id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_account user_account_account_type_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_account
+    ADD CONSTRAINT user_account_account_type_fk_fkey FOREIGN KEY (account_type_fk) REFERENCES public.account_type(account_type_id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_transaction user_transaction_trans_type_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_transaction
+    ADD CONSTRAINT user_transaction_trans_type_fk_fkey FOREIGN KEY (trans_type_fk) REFERENCES public.transaction_type(trans_type_id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_transaction user_transaction_user_account_fk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_transaction
+    ADD CONSTRAINT user_transaction_user_account_fk_fkey FOREIGN KEY (user_account_fk) REFERENCES public.user_account(user_account_id) ON DELETE CASCADE;
 
 
 --
