@@ -10,3 +10,12 @@
     <button type="submit">Upload</button>
   </div>
 </form>
+
+<form (ngSubmit)="sendForm()" #form="ngForm">
+  <div *ngFor="let field of inputFields; index as i">
+    <input type="text" name="field-{{ field.id }}" [(ngModel)]="inputFields[i].value" [attr.data-index]="i"><label>{{ field.label }}</label>
+  </div>
+  <div>
+    <button type="submit">Send</button>
+  </div>
+</form>
