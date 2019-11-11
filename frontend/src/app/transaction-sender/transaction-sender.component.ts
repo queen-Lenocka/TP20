@@ -10,11 +10,14 @@ export class TransactionSenderComponent implements OnInit {
   dataFromServer;
   error;
   visa;
+  inputFields;
+  arr;
   constructor(private messageService: TransactionSenderService) { }
 
   ngOnInit() {
     this.getTestData();
     this.visa = '';
+    this.getInputFields();
   }
 
   getTestData() {
@@ -34,5 +37,19 @@ export class TransactionSenderComponent implements OnInit {
       response => console.log(response),
       error => this.error
     );
+  }
+
+  // get input fields
+  getInputFields() {
+    this.inputFields = this.messageService.getInputFields();
+    console.log("RECEIVED dummy data");
+    console.log(this.inputFields);
+  }
+
+  // send data from input fields
+  sendForm() {
+    // send only fields ID and value
+    let data = {type: this.inputFields.map(({id, value}) => ({id, value}))};
+    this.messageService.sendForm(data);
   }
 }
