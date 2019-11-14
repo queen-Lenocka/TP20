@@ -43,3 +43,7 @@ app.route('/api/test').get((req, res) => {
 app.route('/api/test').post((req, res) => {
   console.log(req.body);
 });
+
+app.route('/api/login').post((req, res) => {
+  console.log(req.body);
+});
