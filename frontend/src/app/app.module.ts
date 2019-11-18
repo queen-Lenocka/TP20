@@ -14,6 +14,7 @@ import { TransactionReceiverComponent } from './transaction-receiver/transaction
 
 import { TransactionSenderService } from './transaction-sender/transaction-sender.service';
 import { LoginComponent } from './login/login.component';
+import { SecretComponent } from './secret/secret.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoginComponent } from './login/login.component';
     MainContextComponent,
     TransactionSenderComponent,
     TransactionReceiverComponent,
-    LoginComponent
+    LoginComponent,
+    SecretComponent
   ],
   imports: [
     BrowserModule,
