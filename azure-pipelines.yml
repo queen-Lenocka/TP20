@@ -10,16 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-
 - script: |
     cd backend
-    sudo npm install
-    npm start
-    
-  displayName: 'Run a multi-line script'
+    pwd
+    npm install
+  displayName: 'Start backend'
