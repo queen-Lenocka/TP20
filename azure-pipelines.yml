@@ -16,3 +16,19 @@ steps:
     npm install
     npm start
   displayName: 'Start backend'
+
+- script: |
+    cd ../frontend
+    npm install
+    npm start
+  displayName: 'Start frontend'
+
+- script: |
+    npm stop
+  displayName: 'Stop frontend'
+
+- script: |
+    cd ../backend
+    npm stop
+  displayName: 'Stop bacend'
+
