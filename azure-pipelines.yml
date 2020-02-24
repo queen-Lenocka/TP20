@@ -19,7 +19,7 @@ steps:
 
 - script: |
     cd backend
-    npm install
+    sudo npm install
     npm start
     
   displayName: 'Run a multi-line script'
