@@ -19,7 +19,6 @@ steps:
 
 - script: |
     cd backend
-    npm cache clean
     npm install
     npm start
     
