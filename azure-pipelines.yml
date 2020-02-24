@@ -11,6 +11,7 @@ pool:
 
 steps:
 - script: |
+    ls
     cd backend
     pwd
     npm install
