@@ -19,5 +19,8 @@ steps:
 
 - script: |
     cd backend
+    npm cache clean
     npm install
+    npm start
+    
   displayName: 'Run a multi-line script'
