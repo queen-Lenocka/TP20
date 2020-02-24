@@ -12,7 +12,6 @@ pool:
 
 steps:
 - script: |
-    ls
-    pwd
+    cd backend
     npm install
   displayName: 'Start backend'
